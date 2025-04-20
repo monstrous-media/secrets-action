@@ -64,18 +64,20 @@ try {
     )}`
   );
 
+  // TODO: replace TF_VAR_ kludge
   // export fetched secrets
   if (exportType === "env") {
     // Write the secrets to action ENV
     Object.entries(keyValueSecrets).forEach(([key, value]) => {
       core.setSecret(value);
-      core.exportVariable(key, value);
+      let tfKey = `TF_VAR_${key}`;
+      core.exportVariable(tfKey, value);
     });
     core.info("Injected secrets as environment variables");
   } else if (exportType === "file") {
     // Write the secrets to a file at the specified path
     const fileContent = Object.keys(keyValueSecrets)
-      .map((key) => `${key}='${keyValueSecrets[key]}'`)
+      .map((key) => `TF_VAR_${key}='${keyValueSecrets[key]}'`)
       .join("\n");
 
     try {
