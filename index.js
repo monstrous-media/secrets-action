@@ -58,6 +58,15 @@ try {
     shouldRecurse,
   });
 
+  core.info("Fetched secrets from Infisical");
+  core.info(`Fetched ${Object.keys(keyValueSecrets).length} secrets`);
+  core.info(
+    `Fetched the following secrets: ${JSON.stringify(
+      Object.keys(keyValueSecrets)
+    )}`
+  );
+  core.info(`Token value is ${keyValueSecrets.infisicalToken}`);
+
   core.debug(
     `Exporting the following envs", ${JSON.stringify(
       Object.keys(keyValueSecrets)
