@@ -58,15 +58,6 @@ try {
     shouldRecurse,
   });
 
-  core.info("Fetched secrets from Infisical");
-  core.info(`Fetched ${Object.keys(keyValueSecrets).length} secrets`);
-  core.info(
-    `Fetched the following secrets: ${JSON.stringify(
-      Object.keys(keyValueSecrets)
-    )}`
-  );
-  core.info(`Token value is ${keyValueSecrets.infisicalToken}`);
-
   core.debug(
     `Exporting the following envs", ${JSON.stringify(
       Object.keys(keyValueSecrets)
@@ -75,6 +66,10 @@ try {
 
   // export fetched secrets
   if (exportType === "env") {
+    // Write the inficisal token to action ENV
+    //core.setSecret(infisicalToken);
+    core.exportVariable("INFISICAL_TOKEN", infisicalToken);
+    core.info(`Injected INFISICAL_TOKEN as environment variable ${infisicalToken}`);
     // Write the secrets to action ENV
     Object.entries(keyValueSecrets).forEach(([key, value]) => {
       core.setSecret(value);
