@@ -66,10 +66,6 @@ try {
 
   // export fetched secrets
   if (exportType === "env") {
-    // Write the inficisal token to action ENV
-    //core.setSecret(infisicalToken);
-    core.exportVariable("INFISICAL_TOKEN", infisicalToken);
-    core.info(`Injected INFISICAL_TOKEN as environment variable ${infisicalToken}`);
     // Write the secrets to action ENV
     Object.entries(keyValueSecrets).forEach(([key, value]) => {
       core.setSecret(value);
